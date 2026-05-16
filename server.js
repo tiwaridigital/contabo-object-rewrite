@@ -3,6 +3,7 @@ const http = require("http")
 const https = require("https")
 const fs = require("fs")
 const path = require("path")
+let DOMAINS = {}
 
 const DEFAULT_BASE =
   process.env.DEFAULT_BASE ||
@@ -11,10 +12,17 @@ let DOMAIN_MAP = {}
 
 const loadDomainConfig = () => {
   try {
-    const cfgPath = path.join(__dirname, "domains.json")
+    const cfgPath = path.join(__dirname, "domains.js")
     if (fs.existsSync(cfgPath)) {
-      DOMAIN_MAP = JSON.parse(fs.readFileSync(cfgPath, "utf8"))
-      console.log("Loaded domain map from domains.json")
+      try {
+        const mod = require(cfgPath)
+        DOMAINS = mod || {}
+      } catch (e) {
+        console.error("Failed to require domains.js:", e.message || e)
+        DOMAINS = {}
+      }
+      DOMAIN_MAP = DOMAINS
+      console.log("Loaded domain map from domains.js")
       return
     }
     if (process.env.DOMAINS) {

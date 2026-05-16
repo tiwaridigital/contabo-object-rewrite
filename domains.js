@@ -1,0 +1,9 @@
+// {
+//   "objects.asurasset.shop": "https://eu2.contabostorage.com/0a32580aadc445ef969bf80291b61f14:asurcdn",
+//   "cdn.asurasset.shop": "https://asurcdn.s3.de.io.cloud.ovh.net/"
+// }
+
+export const DOMAINS = {
+  "objects.asurasset.shop": "https://asurcdn.s3.de.io.cloud.ovh.net",
+  "cdn.asurasset.shop": "https://eu2.contabostorage.com/0a32580aadc445ef969bf80291b61f14:asurcdn",
+}
