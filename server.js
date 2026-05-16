@@ -78,7 +78,16 @@ http
       upstream = await tryFetch(buildPath(raw, true))
     }
 
-    res.writeHead(upstream.statusCode, upstream.headers)
+    const headers = Object.assign({}, upstream.headers || {})
+    const contentType = (headers["content-type"] || "").toLowerCase()
+    if (contentType.startsWith("image/")) {
+      headers["cache-control"] = "public, max-age=31536000, immutable"
+      headers["expires"] = new Date(
+        Date.now() + 365 * 24 * 60 * 60 * 1000,
+      ).toUTCString()
+    }
+
+    res.writeHead(upstream.statusCode, headers)
     upstream.pipe(res)
   })
   .listen(process.env.PORT || 3000, () =>
