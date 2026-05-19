@@ -6,8 +6,9 @@ const path = require("path")
 let DOMAINS = {}
 
 const DEFAULT_BASE =
-  process.env.DEFAULT_BASE ||
-  "https://eu2.contabostorage.com/0a32580aadc445ef969bf80291b61f14:asurcdn"
+  process.env.DEFAULT_BASE || "https://asurcdn.s3.de.io.cloud.ovh.net"
+// process.env.DEFAULT_BASE ||
+// "https://eu2.contabostorage.com/0a32580aadc445ef969bf80291b61f14:asurcdn"
 let DOMAIN_MAP = {}
 
 const loadDomainConfig = () => {
